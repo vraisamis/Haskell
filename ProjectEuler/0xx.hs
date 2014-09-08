@@ -2,21 +2,23 @@ module ProjectEuler0xx
 ( problem001
 , problem002
 , problem003
+, problem004
 ) where
 
 problem001 :: Int
 problem001 = foldl (+) 0 xs
     where xs = [x | x <- [1..999], x `mod` 3 == 0 || x `mod` 5 == 0]
 
-fibs :: Int ->[Integer] -> [Integer]
-fibs n [] = fibs (n - 2) [2, 1]
-fibs n (x:y:xs)
-    | n > 0 = fibs (n - 1) ((x+y):x:y:xs)
-    | otherwise = x:y:xs
+fibs :: [Integer]
+fibs = 1:2:zipWith (+) fibs (tail fibs)
 
 problem002 :: Integer
-problem002 = foldl (+) 0 $ filter (\x -> x `mod` 2 == 0) $ takeWhile (<4000000) fibonacci
-    where fibonacci = reverse $ fibs 10000 []
+problem002 = foldl (+) 0 $ filter (\x -> x `mod` 2 == 0) $ takeWhile (<4000000) fibs
 
 problem003 :: Integer
-problem003 = 600851475143
+problem003 = foldl max 1 [x | x <- [1..n], n `mod` x == 0]
+    where n = 600851475143
+
+problem004 :: Integer
+problem004 = head [x*y | x <- reverse [100..999], y <- reverse [100..999], (reverse $ show (x*y)) == (show (x*y))]
+
