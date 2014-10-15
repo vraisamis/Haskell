@@ -4,6 +4,7 @@ module ProjectEuler0xx
 , problem003
 , problem004
 , problem005
+, problem006
 ) where
 
 import Data.List
@@ -28,4 +29,8 @@ problem004 = head [x*y | x <- reverse [100..999], y <- reverse [100..999], (reve
 problem005 :: Integer
 problem005 = foldl lcm 1 [2..20]
     where lcm n m = (n * m) `div` (gcd n m)
+
+problem006 :: Integer
+problem006 = ((^2) $ foldl (+) 0 xs) - (foldl (+) 0 $ map (^2) xs)
+    where xs = [1..100]
 
